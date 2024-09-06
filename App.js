@@ -1,58 +1,77 @@
-import { StatusBar } from "expo-status-bar";
-import {
-  ActivityIndicator,
-  StyleSheet,
-  Text,
-  View,
-  decrement,
-} from "react-native";
-import Button from "./components/Button";
-import { useState } from "react";
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, TextInput, View, Text } from 'react-native';
+import Button from './components/Button';
+import Input from './components/Input';
+import { useState } from 'react';
 
 export default function App() {
-  const [count, setCount] = useState(0);
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
 
-  function increment() {
-    setCount(count + 1);
-  }
+	function handlesubmit() {
+		console.log({ email, password });
+	}
 
-  function decrement() {
-    setCount(count - 1);
-  }
+	return (
+		<View style={styles.container}>
+			<View style={styles.header}>
+				<Text style={styles.textLogo}>Driver</Text>
 
-  return (
-    <View style={styles.container}>
-      <View style={styles.navBar}>
-        <Text>navBar</Text>
-      </View>
+				<Text style={styles.textSlogan}>faça seu login</Text>
+			</View>
 
-      <Text style={{ fontSize: 40 }}>{count}</Text>
+			<Input
+				placeholder='E-mail'
+				keyboardType='email-address'
+				autoCapitalize='none'
+				autoCorrect={true}
+				autoComplete='email'
+				value={email}
+				// onChange={(event) => setEmail(event.nativeEvent.text)}
+				onChangeText={(text) => setEmail(text)}
+			/>
 
-      <Button onMutate={increment}>
-        <Text>Adicionar</Text>
-      </Button>
+			<Input
+				placeholder='Senha'
+				secureTextEntry
+				value={password}
+				// onChange={(event) => setPassword(event.nativeEvent.text)}
+				// onSubmitEditing={handlesubmit}
+				onChangeText={(text) => setPassword(text)}
+			/>
 
-      <ActivityIndicator color="#f00" />
-
-      <Button children="subtrair" onMutate={decrement} />
-      <StatusBar style="auto" />
-    </View>
-  );
+			<Button disabled={false} onPress={handlesubmit}>
+				Acessar
+			</Button>
+			<StatusBar style='auto' />
+		</View>
+	);
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#ccc",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-
-  navBar: {
-    width: "100%",
-    height: 100,
-    backgroundColor: "#f00",
-    justifyContent: "center",
-    alignItems: "center",
-  },
+	container: {
+		flex: 1,
+		padding: 20,
+		gap: 16,
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
+	header: {
+		alignItems: 'center',
+	},
+	textLogo: {
+		fontWeight: 'bold',
+		fontSize: 22,
+	},
+	textSlogan: {
+		color: '#333',
+		fontSize: 12,
+	},
+	navBar: {
+		width: '100%',
+		height: 100,
+		backgroundColor: '#f00',
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
 });

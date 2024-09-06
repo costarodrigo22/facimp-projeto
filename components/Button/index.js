@@ -1,20 +1,21 @@
-import { TouchableOpacity, Text } from "react-native";
+import { Text, Pressable, View } from 'react-native';
+import { styles } from './styles';
 
-export default function Button({ children, onMutate }) {
-  return (
-    <TouchableOpacity
-      onPress={onMutate}
-      style={{
-        backgroundColor: "#c3c3",
-        width: 120,
-        height: 60,
-        alignItems: "center",
-        justifyContent: "center",
-        marginBottom: 30,
-        borderRadius: 10,
-      }}
-    >
-      <Text style={{ color: "#000" }}>{children}</Text>
-    </TouchableOpacity>
-  );
+export default function Button({ children, disabled, ...props }) {
+	return (
+		<View style={styles.buttonWrapper}>
+			<Pressable
+				disabled={disabled}
+				style={[styles.button, disabled && styles.buttonDisabled]}
+				android_ripple={{ color: '#777' }}
+				{...props}
+			>
+				<Text
+					style={[styles.buttonLabel, disabled && styles.buttonLabelDisabled]}
+				>
+					{children}
+				</Text>
+			</Pressable>
+		</View>
+	);
 }
